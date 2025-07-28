@@ -11,5 +11,5 @@ public interface CategoriaRepository extends JpaRepository<Categoria, Long> {
     //Optional<Categoria> findByNombreIgnoreCase(String nombre);
     //este metodo servira para no insertar registros duplicados
 
-    CategoriaDTO findByNombre(String nombre);
+    Categoria findByNombre(String nombre);
 }

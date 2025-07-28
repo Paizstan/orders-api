@@ -7,6 +7,7 @@ import com.devsoft.orders_api.repository.CategoriaRepository;
 import jdk.jfr.Category;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collections;
 import java.util.List;
@@ -20,6 +21,7 @@ public class CategoriaService implements ICategotiaService {
     private CategoriaRepository categoriaRepository;
 
     @Override
+    @Transactional(readOnly = true)
     public List<CategoriaDTO> findAll() {
         return categoriaRepository.findAll().stream()
                 .map(this::convertToDTO)
@@ -32,9 +34,10 @@ public class CategoriaService implements ICategotiaService {
     }
 
     @Override
-    public CategoriaDTO findBiId(Long id) {
-        Categoria categoria = categoriaRepository.findById(id)
-                .orElseThrow(() -> new NoSuchElementException("No se encuentra una categoria con el Id: " + id));
+    @Transactional(readOnly = true)
+    public CategoriaDTO findById(Long id) {
+        Categoria categoria = categoriaRepository.findById(id).orElse(null);
+        if(categoria == null) return null;
         return convertToDTO(categoria);
     }
 
@@ -48,13 +51,14 @@ public class CategoriaService implements ICategotiaService {
          catNueva.setId(dto.getId());
          catNueva.setNombre(dto.getNombre());
         }
-                categoriaRepository.save(catNueva);
         return convertToDTO(categoriaRepository.save(catNueva));
     }
 
     @Override
     public CategoriaDTO findByNombre(String nombre) {
-        return categoriaRepository.findByNombre(nombre);
+        Categoria categoria = categoriaRepository.findByNombre(nombre);
+        if(categoria == null) return null;
+        return convertToDTO(categoria);
     }
 
     @Override
