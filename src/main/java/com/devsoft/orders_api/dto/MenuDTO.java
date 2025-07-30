@@ -1,6 +1,5 @@
 package com.devsoft.orders_api.dto;
 
-import com.devsoft.orders_api.entities.Categoria;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -20,5 +19,5 @@ public class MenuDTO {
     private BigDecimal precioUnitario;
     private String urlImagen;
     private boolean disponible;
-    private Categoria categoria;
+    private CategoriaDTO categoriaDTO;
 }
