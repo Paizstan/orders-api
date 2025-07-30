@@ -12,7 +12,11 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class MenuService implements IMenuService {
@@ -46,6 +50,29 @@ public class MenuService implements IMenuService {
     @Override
     @Transactional(readOnly = true)
     public MenuDTO save(MenuDTO dto, MultipartFile imageFile) throws IOException {
+        Menu menu;
+        if(dto.getId() == null){
+            //se va agregar un registro
+            menu = new Menu();
+            //verificamos si viene una imagen
+            if(imageFile !=null && imageFile.isEmpty()){
+                //le anteponemos un rumero aleatorio al archivo original de la imagen
+                //para que no se repita nombre de archivos de imagen
+                String nombreArchivo = UUID.randomUUID().toString()+"_"+imageFile.getOriginalFilename();
+                //definimos la ruta donde se cargara el archivo fisico
+                Path rutaArchivo = Paths.get(uploadDir, nombreArchivo);
+                //copiamos el archivo a la carpeta del servidor
+                Files.copy(imageFile.getInputStream(), rutaArchivo);
+                menu.setUrlImagen(nombreArchivo);
+            }
+
+        }else{
+            //se va actualizar un registro
+            Menu menuActual =
+            menu = menuRepository.findById(dto.getId()).orElse(null);
+
+
+        }
         return null;
     }
 
