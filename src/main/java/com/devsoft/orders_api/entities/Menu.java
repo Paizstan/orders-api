@@ -31,8 +31,9 @@ public class Menu implements Serializable {
     @Column(name = "url_imagen", nullable = true, length = 100)
     private String urlImagen;
     @Column(name = "activo", columnDefinition = "boolean default true")
-    private boolean activo;
+    private boolean isDisponible;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "categoria_id", referencedColumnName = "id", nullable = false)
     private Categoria categoria;
+
 }
