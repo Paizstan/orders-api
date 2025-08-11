@@ -1,5 +1,6 @@
 package com.devsoft.orders_api.entities;
 
+import com.devsoft.orders_api.utils.EstadoOrden;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -33,8 +34,11 @@ public class Orden implements Serializable {
     private LocalDate fecha;
     @Column(name = "hora", nullable = false)
     private LocalTime hora;
+
+    @Enumerated(EnumType.STRING)
     @Column(name = "estado", nullable = false, length = 1)
-    private String estado;
+    private EstadoOrden estado;
+
     @Column(name = "total", nullable = false, precision = 10, scale = 2)
     private BigDecimal total;
     @ManyToOne(fetch = FetchType.LAZY)

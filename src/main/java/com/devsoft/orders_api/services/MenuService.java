@@ -105,9 +105,9 @@ public class MenuService implements IMenuService {
             }
 
         }catch(DataAccessException e){
-            System.out.println("Error: " +e.getMessage() );
+            System.out.println("Error: " +e.getMessage());
         }catch (IOException e){
-
+            throw new RuntimeException(e);
         }
     }
 
