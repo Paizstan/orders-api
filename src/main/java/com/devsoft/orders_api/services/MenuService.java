@@ -8,6 +8,7 @@ import com.devsoft.orders_api.repository.MenuRepository;
 import com.devsoft.orders_api.utils.MenuMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -94,7 +95,20 @@ public class MenuService implements IMenuService {
     }
     @Override
     public void delete(Long id) {
-        menuRepository.deleteById(id);
+        Menu menuActual = menuRepository.findById(id).orElse(null);
+        try{
+            menuRepository.deleteById(id);
+            if(menuActual != null && menuActual.getUrlImagen() !=null){
+                //hay que eliminar el archivo de imagen
+                Path rutaAnterior = Paths.get(uploadDir, "menus", menuActual.getUrlImagen());
+                Files.deleteIfExists(rutaAnterior);
+            }
+
+        }catch(DataAccessException e){
+            System.out.println("Error: " +e.getMessage() );
+        }catch (IOException e){
+
+        }
     }
 
     private String procesarImagen(MultipartFile imageFile)

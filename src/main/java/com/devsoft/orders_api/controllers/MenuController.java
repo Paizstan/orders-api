@@ -4,6 +4,7 @@ import com.devsoft.orders_api.dto.MenuDTO;
 import com.devsoft.orders_api.interfaces.IMenuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -106,5 +107,30 @@ public class MenuController {
             throw new RuntimeException(e);
         }
     }
+
+    @DeleteMapping("/menus/{id}") // no usages
+    public ResponseEntity<?> delete(@PathVariable Long id) {
+        Map<String, Object> response = new HashMap<>();
+        MenuDTO menuActual = menuService.finById(id);
+        if (menuActual == null) {
+            response.put("message", "No se puede eliminar el menú o producto con ID: "
+                    .concat(id.toString()).concat(" no existe en la base de datos"));
+            return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
+        }
+        try {
+            menuService.delete(id);
+            response.put("message", "Menú eliminado...");
+            return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
+        } catch (DataIntegrityViolationException e) {
+            response.put("Message", "No se puede eliminar el menu" + menuActual.getNombre() +
+                    ", por que esta en uso");
+            response.put("error", e.getMessage());
+            return new ResponseEntity<>(response, HttpStatus.CONFLICT);
+        } catch (DataAccessException e) {
+            response.put("message", "No se puede registro de menú, ya tiene ordenes asociadas");
+            return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
 
 }
