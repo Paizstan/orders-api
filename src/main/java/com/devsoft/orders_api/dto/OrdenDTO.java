@@ -21,7 +21,7 @@ public class OrdenDTO {
     private String correlativo;
     private LocalDate fecha;
     private LocalTime hora;
-    private EstadoOrden estadoOrden;
+    private EstadoOrden estado;
     private BigDecimal total;
     private ClienteDTO clienteDTO;
     private MesaDTO mesaDTO;

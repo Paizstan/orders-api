@@ -13,7 +13,7 @@ import java.math.BigDecimal;
 @Builder
 public class DetalleOrdenDTO {
     private Long id;
-    private Long menuId;
+    private MenuDTO menuDTO;
     private Integer cantidad;
     private BigDecimal precio;
     private BigDecimal subtotal;
