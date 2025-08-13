@@ -52,7 +52,7 @@ public class MenuService implements IMenuService {
     }
 
     @Override
-    @Transactional(readOnly = true)
+    @Transactional()
     public MenuDTO save(MenuDTO dto, MultipartFile imageFile) throws IOException {
         Menu menu;
         if(dto.getId() == null){

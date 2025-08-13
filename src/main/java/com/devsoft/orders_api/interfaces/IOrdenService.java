@@ -8,9 +8,10 @@ import java.util.List;
 
 public interface IOrdenService {
     List<OrdenDTO> finAll();
-    List<   OrdenDTO> finByEstado(EstadoOrden estado);
-    OrdenDTO finById(Long id);
+    List<   OrdenDTO> findByEstado(EstadoOrden estado);
+    OrdenDTO findById(Long id);
     OrdenDTO registerOrUpdate(OrdenDTO ordenDTO);
     void anular(Long id);
+    OrdenDTO changeState(OrdenDTO dto);
 
 }

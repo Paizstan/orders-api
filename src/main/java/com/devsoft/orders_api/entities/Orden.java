@@ -36,7 +36,7 @@ public class Orden implements Serializable {
     private LocalTime hora;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "estado", nullable = false, length = 1)
+    @Column(name = "estado", nullable = false, length = 20)
     private EstadoOrden estado;
 
     @Column(name = "total", nullable = false, precision = 10, scale = 2)
