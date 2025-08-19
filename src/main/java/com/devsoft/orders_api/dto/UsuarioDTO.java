@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 public class UsuarioDTO {
     private Long id;
     private String nombre;
-    private String usuario;
+    private String username;
     private boolean activo;
     private RoleDTO roleDTO;
 }
