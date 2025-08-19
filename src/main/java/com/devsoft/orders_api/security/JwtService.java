@@ -1,4 +1,4 @@
-package com.devsoft.orders_api.services;
+package com.devsoft.orders_api.security;
 
 import com.devsoft.orders_api.entities.Usuario;
 import com.devsoft.orders_api.repository.UserRepository;
@@ -60,12 +60,12 @@ public class JwtService implements UserDetailsService {
         claims.put("activo", user.isActivo());
         claims.put("role", user.getRole().getNombre());
 
-    return Jwts.builder()
-            .subject(userDetails.getUsername())
-            .claims(claims).issuedAt(new Date())
-            .expiration(new Date(System.currentTimeMillis() +jwtExpiration))
-            .signWith(SignatureAlgorithm.HS256, jwtSecret.getBytes())
-            .compact();
+        return Jwts.builder()
+                .subject(userDetails.getUsername())
+                .claims(claims).issuedAt(new Date())
+                .expiration(new Date(System.currentTimeMillis() +jwtExpiration))
+                .signWith(SignatureAlgorithm.HS256, jwtSecret.getBytes())
+                .compact();
     }
 
     public boolean isTokenValid(String token, UserDetails userDetails){
@@ -74,17 +74,17 @@ public class JwtService implements UserDetailsService {
 
     }
 
-    private String extractUsername(String token) {
+    public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);
     }
 
     private <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
         final Claims claims = extractAllClaims(token);
         return claimsResolver.apply(claims);
-        
+
     }
 
-    private Claims extractAllClaims(String token) {
+    public Claims extractAllClaims(String token) {
         JwtParser jwtParser = Jwts.parser()
                 .setSigningKey(jwtSecret.getBytes())
                 .build();
