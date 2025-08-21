@@ -1,6 +1,5 @@
 package com.devsoft.orders_api.security;
 
-
 import com.devsoft.orders_api.auth.dto.JwtResponse;
 import com.devsoft.orders_api.auth.dto.LoginDTO;
 import com.devsoft.orders_api.auth.dto.RegisterDTO;
@@ -51,7 +50,7 @@ public class AuthService {
     public JwtResponse authenticate(LoginDTO dto) {
         Usuario user = userRepository.findByUsername(dto.getUsername())
                 .orElseThrow(() -> new RuntimeException("Credenciales inválidas"));
-        if (passwordEncoder.matches(dto.getPassword(), user.getUsername())) {
+        if (!passwordEncoder.matches(dto.getPassword(), user.getPassword())) {
             throw new RuntimeException("Credenciales inválidas");
         }
         String token = jwtService.generateToken(
