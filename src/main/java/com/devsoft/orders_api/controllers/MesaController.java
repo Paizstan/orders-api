@@ -1,8 +1,6 @@
 package com.devsoft.orders_api.controllers;
 
-import com.devsoft.orders_api.dto.ClienteDTO;
-import com.devsoft.orders_api.dto.MesaDTO;
-import com.devsoft.orders_api.services.ClienteService;
+import com.devsoft.orders_api.entities.Mesa;
 import com.devsoft.orders_api.services.MesaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -21,8 +19,9 @@ public class MesaController {
     private MesaService mesaService;
 
     @GetMapping("/mesas")
-    public ResponseEntity<?> getAll(){
-        List<MesaDTO> mesas = mesaService.findAll();
+    public ResponseEntity <?> getAll(){
+        List<Mesa> mesas = mesaService.findAll();
         return ResponseEntity.ok(mesas);
     }
+
 }

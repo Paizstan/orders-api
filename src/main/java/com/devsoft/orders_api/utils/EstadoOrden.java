@@ -6,5 +6,6 @@ public enum EstadoOrden {
     PREPARANDO,
     LISTA,
     ENTREGADA,
+    PAGADA,
     ANULADA
 }
