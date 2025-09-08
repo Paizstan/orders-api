@@ -23,7 +23,7 @@ public class Mesa implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(name = "numero", nullable = false)
-    private String numero;
+    private int numero;
     @Column(name = "ubicacion", nullable = false, length = 15)
     private String ubicacion;
 
