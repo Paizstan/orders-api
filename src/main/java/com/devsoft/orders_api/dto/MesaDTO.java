@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @Builder
 public class MesaDTO {
     private Long id;
-    private  String numero;
+    private  Integer numero;
     private String ubicacion;
 
 }
