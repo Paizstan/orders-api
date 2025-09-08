@@ -1,6 +1,8 @@
 package com.devsoft.orders_api.controllers;
 
 import com.devsoft.orders_api.dto.ClienteDTO;
+import com.devsoft.orders_api.entities.Cliente;
+import com.devsoft.orders_api.entities.Mesa;
 import com.devsoft.orders_api.services.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -19,8 +21,8 @@ public class ClienteController {
     private ClienteService clienteService;
 
     @GetMapping("/clientes")
-    public ResponseEntity<?> getAll(){
-        List<ClienteDTO> clientes = clienteService.findAll();
+    public ResponseEntity <?> getAll(){
+        List<Cliente> clientes = clienteService.findAll();
         return ResponseEntity.ok(clientes);
     }
 }

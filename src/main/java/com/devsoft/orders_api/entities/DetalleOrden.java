@@ -1,5 +1,6 @@
 package com.devsoft.orders_api.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -39,7 +40,9 @@ public class DetalleOrden implements Serializable {
     private Menu menu;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "orden_id", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "orden_id", nullable = false)
+    @JsonBackReference
     private Orden orden;
+
 
 }

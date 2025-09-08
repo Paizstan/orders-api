@@ -40,7 +40,9 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth ->
                         auth
                                 .requestMatchers("/api/auth/**").permitAll()
+                                .requestMatchers("/uploads/**").permitAll()
                                 .requestMatchers("/api/menus/**").permitAll()
+
                                 .anyRequest().authenticated()
                 )
                 .authenticationProvider(authenticationProvider()

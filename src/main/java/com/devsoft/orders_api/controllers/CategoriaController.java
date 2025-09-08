@@ -82,7 +82,7 @@ public class CategoriaController {
         try{
             CategoriaDTO catExiste = categotiaService.findByNombre(dto.getNombre());
             if(catExiste != null && !Objects.requireNonNull(catExiste).getId().equals(id)){
-                response.put("message", "Ya existe una categoria cpn este nombreen la base de datos, digite otro ");
+                response.put("message", "Ya existe una categoria con este nombreen la base de datos, digite otro ");
                 return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CONFLICT);
             }
             catActual.setNombre(dto.getNombre());

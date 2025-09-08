@@ -13,15 +13,7 @@ public class MesaService {
     @Autowired
     private MesaRepository mesaRepository;
 
-    public List<MesaDTO> findAll(){
-        return mesaRepository.findAll().stream().map(this::toDTO).toList();
-    }
-
-    private MesaDTO toDTO(Mesa mesa){
-        MesaDTO dto = new MesaDTO();
-        dto.setId(mesa.getId());
-        dto.setNumero(mesa.getNumero());
-        dto.setUbicacion(mesa.getUbicacion());
-        return dto;
+    public List<Mesa> findAll(){
+        return mesaRepository.findAll();
     }
 }
